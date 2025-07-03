@@ -10,6 +10,13 @@ import Footer from './components/Footer';
 import NeonDivider from './components/NeonDivider';
 import LoadingScreen from './components/LoadingScreen';
 
+const SectionDivider = () => (
+  <div className="py-12">
+    <div className="max-w-7xl mx-auto px-8 lg:px-16">
+      <NeonDivider height={3} variant="glare" />
+    </div>
+  </div>
+);
 
 export default function Home() {
   return (
@@ -17,45 +24,20 @@ export default function Home() {
       <LoadingScreen />
       
       <Hero />
-      
-      <div className="py-12">
-        <div className="max-w-7xl mx-auto px-8 lg:px-16">
-          <NeonDivider height={3} variant="pulse" />
-        </div>
-      </div>
-      
+      <SectionDivider />
+
       <Projects />
-      
-      <div className="py-12">
-        <div className="max-w-7xl mx-auto px-8 lg:px-16">
-          <NeonDivider height={3} variant="pulse" />
-        </div>
-      </div>
-      
+      <SectionDivider />
+
       <Process />
-      
-      <div className="py-12">
-        <div className="max-w-7xl mx-auto px-8 lg:px-16">
-          <NeonDivider height={3} variant="pulse" />
-        </div>
-      </div>
-      
+      <SectionDivider />
+
       <About />
-      
-      <div className="py-12">
-        <div className="max-w-7xl mx-auto px-8 lg:px-16">
-          <NeonDivider height={3} variant="pulse" />
-        </div>
-      </div>
-      
+      <SectionDivider />
+
       <TechStack />
-      
-      <div className="py-12">
-        <div className="max-w-7xl mx-auto px-8 lg:px-16">
-          <NeonDivider height={3} variant="pulse" />
-        </div>
-      </div>
-      
+      <SectionDivider />
+
       <Contact />
       
       <Footer />
