@@ -31,6 +31,7 @@ export default function Hero() {
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           className="w-12 h-12 flex items-center justify-center cursor-pointer hover:scale-110 transition-transform rounded-full bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 group"
           aria-label="Toggle menu"
+          style={{ cursor: 'pointer' }}
         >
           <i className={`${isMenuOpen ? 'ri-close-line' : 'ri-menu-line'} text-2xl text-white group-hover:text-green-400 transition-colors ${isMenuOpen ? 'text-green-400' : ''}`}></i>
         </button>
@@ -38,10 +39,34 @@ export default function Hero() {
         {isMenuOpen && (
           <div className="absolute top-20 right-0 bg-zinc-900/80 backdrop-blur-lg rounded-lg p-8 min-w-60 border border-zinc-800/50 shadow-xl shadow-green-400/5">
             <div className="flex flex-col gap-6">
-              <button onClick={() => scrollToSection('projects')} className="text-white hover:text-green-400 transition-colors cursor-pointer text-left font-pixel text-lg">Projects</button>
-              <button onClick={() => scrollToSection('about')} className="text-white hover:text-green-400 transition-colors cursor-pointer text-left font-pixel text-lg">About</button>
-              <button onClick={() => scrollToSection('tech')} className="text-white hover:text-green-400 transition-colors cursor-pointer text-left font-pixel text-lg">Tech Stack</button>
-              <button onClick={() => scrollToSection('contact')} className="text-white hover:text-green-400 transition-colors cursor-pointer text-left font-pixel text-lg">Contact</button>
+              <button 
+                onClick={() => scrollToSection('projects')} 
+                className="text-white hover:text-green-400 transition-colors cursor-pointer text-left font-pixel text-lg"
+                style={{ cursor: 'pointer' }}
+              >
+                Projects
+              </button>
+              <button 
+                onClick={() => scrollToSection('about')} 
+                className="text-white hover:text-green-400 transition-colors cursor-pointer text-left font-pixel text-lg"
+                style={{ cursor: 'pointer' }}
+              >
+                About
+              </button>
+              <button 
+                onClick={() => scrollToSection('tech')} 
+                className="text-white hover:text-green-400 transition-colors cursor-pointer text-left font-pixel text-lg"
+                style={{ cursor: 'pointer' }}
+              >
+                Tech Stack
+              </button>
+              <button 
+                onClick={() => scrollToSection('contact')} 
+                className="text-white hover:text-green-400 transition-colors cursor-pointer text-left font-pixel text-lg"
+                style={{ cursor: 'pointer' }}
+              >
+                Contact
+              </button>
             </div>
           </div>
         )}
@@ -62,10 +87,11 @@ export default function Hero() {
             <button 
               onClick={() => scrollToSection('projects')}
               className="bg-green-400 text-black px-8 py-4 rounded-none font-pixel hover:bg-green-300 transition-colors cursor-pointer whitespace-nowrap relative group overflow-hidden"
+              style={{ cursor: 'pointer' }}
             >
               <span className="relative z-10">View My Work</span>
               <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
-              <span className="absolute -inset-x-full bottom-0 h-px bg-white/50 group-hover:animate-shine"></span>
+              <span className="absolute -inset-x-full bottom-0 h-px bg-black/30 group-hover:animate-shine"></span>
             </button>
           </div>
         </div>

@@ -8,44 +8,62 @@ export default function CustomCursor() {
   const [isPointer, setIsPointer] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
+  const [isMobile, setIsMobile] = useState(true); // Default to true to prevent flicker on mobile
 
   useEffect(() => {
+    // Check if device is mobile
+    const checkMobile = () => {
+      const isTouchDevice = 
+        'ontouchstart' in window || 
+        navigator.maxTouchPoints > 0 ||
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      setIsMobile(isTouchDevice);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
     const updatePosition = (e: MouseEvent) => {
-  setPosition({ x: e.clientX, y: e.clientY });
-
-  const target = e.target as HTMLElement;
-  const isClickable =
-    target.tagName.toLowerCase() === 'button' ||
-    target.tagName.toLowerCase() === 'a' ||
-    !!target.closest('button') ||
-    !!target.closest('a') ||
-    window.getComputedStyle(target).cursor === 'pointer';
-
-  setIsPointer(!!isClickable);
-};
-
+      setPosition({ x: e.clientX, y: e.clientY });
+      
+      // Check if cursor is over a clickable element
+      const target = e.target as HTMLElement;
+      const isClickable = 
+        target.tagName.toLowerCase() === 'button' || 
+        target.tagName.toLowerCase() === 'a' || 
+        target.closest('button') !== null || 
+        target.closest('a') !== null ||
+        window.getComputedStyle(target).cursor === 'pointer';
+      
+      setIsPointer(isClickable);
+    };
 
     const handleMouseDown = () => setIsClicked(true);
     const handleMouseUp = () => setIsClicked(false);
     const handleMouseEnter = () => setIsVisible(true);
     const handleMouseLeave = () => setIsVisible(false);
 
-    document.addEventListener('mousemove', updatePosition);
-    document.addEventListener('mousedown', handleMouseDown);
-    document.addEventListener('mouseup', handleMouseUp);
-    document.addEventListener('mouseenter', handleMouseEnter);
-    document.addEventListener('mouseleave', handleMouseLeave);
+    // Only add event listeners if not on mobile
+    if (!isMobile) {
+      document.addEventListener('mousemove', updatePosition);
+      document.addEventListener('mousedown', handleMouseDown);
+      document.addEventListener('mouseup', handleMouseUp);
+      document.addEventListener('mouseenter', handleMouseEnter);
+      document.addEventListener('mouseleave', handleMouseLeave);
+    }
 
     return () => {
+      window.removeEventListener('resize', checkMobile);
       document.removeEventListener('mousemove', updatePosition);
       document.removeEventListener('mousedown', handleMouseDown);
       document.removeEventListener('mouseup', handleMouseUp);
       document.removeEventListener('mouseenter', handleMouseEnter);
       document.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, []);
+  }, [isMobile]);
 
-  if (typeof window === 'undefined') return null;
+  // Don't render anything on mobile or server-side
+  if (isMobile || typeof window === 'undefined') return null;
 
   return (
     <>
@@ -61,7 +79,7 @@ export default function CustomCursor() {
       
       {/* Outer cursor ring */}
       <motion.div
-        className="fixed pointer-events-none z-50 rounded-full mix-blend-difference"
+        className="fixed pointer-events-none z-[9999] rounded-full mix-blend-difference"
         animate={{
           x: position.x - 24,
           y: position.y - 24,
@@ -84,7 +102,7 @@ export default function CustomCursor() {
       
       {/* Inner cursor dot */}
       <motion.div
-        className="fixed pointer-events-none z-50 rounded-full bg-green-400"
+        className="fixed pointer-events-none z-[9999] rounded-full bg-green-400"
         animate={{
           x: position.x - 4,
           y: position.y - 4,
