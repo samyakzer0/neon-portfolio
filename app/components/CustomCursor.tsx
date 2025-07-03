@@ -11,19 +11,19 @@ export default function CustomCursor() {
 
   useEffect(() => {
     const updatePosition = (e: MouseEvent) => {
-      setPosition({ x: e.clientX, y: e.clientY });
-      
-      // Check if cursor is over a clickable element
-      const target = e.target as HTMLElement;
-      const isClickable = 
-        target.tagName.toLowerCase() === 'button' || 
-        target.tagName.toLowerCase() === 'a' || 
-        target.closest('button') || 
-        target.closest('a') ||
-        window.getComputedStyle(target).cursor === 'pointer';
-      
-      setIsPointer(isClickable);
-    };
+  setPosition({ x: e.clientX, y: e.clientY });
+
+  const target = e.target as HTMLElement;
+  const isClickable =
+    target.tagName.toLowerCase() === 'button' ||
+    target.tagName.toLowerCase() === 'a' ||
+    !!target.closest('button') ||
+    !!target.closest('a') ||
+    window.getComputedStyle(target).cursor === 'pointer';
+
+  setIsPointer(!!isClickable);
+};
+
 
     const handleMouseDown = () => setIsClicked(true);
     const handleMouseUp = () => setIsClicked(false);
